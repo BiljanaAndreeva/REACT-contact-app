@@ -13,11 +13,13 @@ const ContactCard = (props) => {
                     <div>{email}</div>
                 </Link>
                 </div>
-                <i className="trash alternate outline icon"
-                style={{color:"red", marginTop:"7px"}}
-                onClick ={ () => props.clickHandler(id) }>
+                <div style={{marginLeft:"900px"}}>
+                    <i className="trash alternate outline icon"
+                    style={{color:"red"}}
+                    onClick ={ () => props.clickHandler(id) }>
 
-                </i>
+                    </i>
+                </div>
         </div>
     );
 
