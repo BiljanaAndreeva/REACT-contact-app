@@ -15,6 +15,8 @@ function App() {
   const LOC_STORE_KEY="contacts"; 
 
   const [contacts, setContacts]=useState([]);
+  const [searchTerm, setSearchTerm]=useState("");
+  const [searchResult, setSearchResult]=useState([]);
 
 
   //RetrieveContacts
@@ -53,6 +55,21 @@ function App() {
     setContacts(newContactlist);
   };
 
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if(searchTerm !== ""){
+      const newContactlist= contacts.filter((contact)=>{
+        return Object.values(contact) 
+        .join("")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      });
+      setSearchResult(newContactlist);
+    } else {
+      setSearchResult(contacts);
+    }
+  };
+
   useEffect(() => {
    // const retriveContacts=JSON.parse(localStorage.getItem(LOC_STORE_KEY));
    //if (retriveContacts) setContacts(retriveContacts);
@@ -84,8 +101,11 @@ function App() {
             render={(props)=>(
             <ContactList 
               {...props} 
-              contacts={contacts} 
-              getContactId={removeContactHandler}/>
+              contacts={searchTerm.length <1 ? contacts : searchResult } 
+              getContactId={removeContactHandler}
+              term = {searchTerm}
+              searchKeyWord={searchHandler}
+              />
 
             )}
             />
